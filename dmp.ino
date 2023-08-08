@@ -15,7 +15,7 @@ void towrite()
 }
 void setup()
 {
-    Serial.begin(115200);
+    Serial.begin(9600);
     // Initating power converter
     converter.begin(Serial);
     // Setting both Voltage and Current to 2V and 0.1A respectively
