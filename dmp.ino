@@ -41,7 +41,8 @@ void loop()
   's' or 'S' - returns CC / CV status. 0 - CV, 1 - CC.
   'm' or 'M' - returns max current of the power converter in Amps (e.g. 5, 8, 16 or 24).
   't' or 'T' (or any other character) - returns the internal temperature of the power converter in Celcius.*/
-    v = converter.read('m');
+    v = converter.read('v');
+    Serial.print("volatge :");
     Serial.println(v);
     // Turn off the power
     towrite();
