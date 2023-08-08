@@ -1,5 +1,5 @@
 #include <DPM8600.h>
-
+int Enable_pin = 8;
 DPM8600 converter(1);
 float v;
 
@@ -17,6 +17,7 @@ void setup()
 {
     Serial.begin(9600);
     delay(1000);
+    digitalWrite(Enable_pin, HIGH);
     // Initating power converter
     int begins = converter.begin(Serial, 10);
     if (!begins)
