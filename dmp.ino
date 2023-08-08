@@ -16,8 +16,19 @@ void towrite()
 void setup()
 {
     Serial.begin(9600);
+    delay(1000);
     // Initating power converter
-    converter.begin(Serial);
+    int begins = converter.begin(Serial, 10);
+    if (!begins)
+    {
+        /* code */
+        Serial.println("the controller was not initailized!!");
+    }
+    else
+    {
+        Serial.println("the controller  is well  initailized!! :)");
+    }
+
     // Setting both Voltage and Current to 2V and 0.1A respectively
     converter.writeVC(30, 10);
     pinMode(13, OUTPUT); // re
