@@ -1,6 +1,6 @@
 #include <DPM8600.h>
 
-DPM8600 converter;
+DPM8600 converter(1);
 float v;
 
 void toread()
