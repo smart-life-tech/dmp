@@ -44,7 +44,7 @@ void loop()
     towrite();
     converter.power(true);
     toread();
-    // delay(500);
+    delay(1000);
     //  Read voltage if we want to.
     //  Measurements should be taken at least 0.5s after power on, as converter needs time to adjust
     /*
