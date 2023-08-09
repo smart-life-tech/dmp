@@ -21,7 +21,7 @@ void setup()
     digitalWrite(Enable_pin, HIGH);
     // Initating power converter
     int begins = converter.begin(Serial1, 10);
-    if (!begins)
+    if (begins <= 0)
     {
         /* code */
         Serial.println("the controller was not initailized!! " + String(begins));
@@ -41,10 +41,7 @@ void loop()
 {
 
     // Turn on the power
-    towrite();
-    converter.power(true);
-    toread();
-    delay(1000);
+
     //  Read voltage if we want to.
     //  Measurements should be taken at least 0.5s after power on, as converter needs time to adjust
     /*
@@ -54,6 +51,14 @@ void loop()
   's' or 'S' - returns CC / CV status. 0 - CV, 1 - CC.
   'm' or 'M' - returns max current of the power converter in Amps (e.g. 5, 8, 16 or 24).
   't' or 'T' (or any other character) - returns the internal temperature of the power converter in Celcius.*/
+    while (Serial1.available())
+    {
+        Serial.print(Serial1.read());
+    }
+    towrite();
+    converter.power(true);
+    toread();
+    delay(1000);
     v = converter.read('c');
     Serial.print("current:");
     Serial.println(v);
