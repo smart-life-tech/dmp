@@ -32,7 +32,7 @@ void setup()
     }
 
     // Setting both Voltage and Current to 2V and 0.1A respectively
-    converter.writeVC(25, 10);
+    converter.writeVC(30, 10);
     pinMode(13, OUTPUT); // re
     pinMode(14, OUTPUT); // de
 }
