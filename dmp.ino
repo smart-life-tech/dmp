@@ -24,11 +24,11 @@ void setup()
     if (!begins)
     {
         /* code */
-        Serial.println("the controller was not initailized!!");
+        Serial.println("the controller was not initailized!! " + String(begins));
     }
     else
     {
-        Serial.println("the controller  is well  initailized!! :)");
+        Serial.println("the controller  is well  initailized!! :) " + String(begins));
     }
 
     // Setting both Voltage and Current to 2V and 0.1A respectively
@@ -54,10 +54,31 @@ void loop()
   's' or 'S' - returns CC / CV status. 0 - CV, 1 - CC.
   'm' or 'M' - returns max current of the power converter in Amps (e.g. 5, 8, 16 or 24).
   't' or 'T' (or any other character) - returns the internal temperature of the power converter in Celcius.*/
-    v = converter.read('v');
-    Serial.print("volatge :");
+    v = converter.read('c');
+    Serial.print("current:");
     Serial.println(v);
     // Turn off the power
+    delay(200);
+    v = converter.read('p');
+    Serial.print("Power status : ");
+    Serial.println(v);
+    delay(200);
+    v = converter.read('s');
+    Serial.print("status. 0 - CV, 1 - CC: ");
+    Serial.println(v);
+    delay(200);
+    v = converter.read('m');
+    Serial.print("max current of the power converter in Amps :");
+    Serial.println(v);
+    delay(200);
+    v = converter.read('t');
+    Serial.print("internal temperature:");
+    Serial.println(v);
+    delay(200);
+    v = converter.read('T');
+    Serial.print("internal temperature: ");
+    Serial.println(v);
     towrite();
-    converter.power(false);
+    delay(200);
+    // converter.power(false);
 }
