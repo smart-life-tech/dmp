@@ -1,10 +1,20 @@
+/*
+Control a DPM-8600 series power supply
+Compatible with the simple serial protocol
+USB Serial cable wiring:
+    Red ---- (do not connect)
+    Wht ------ A
+    Grn ------ B
+    Blk ---- GND
+    */
 #define QUIET -1
 #define ERROR 0
 #define WARN 1
 #define INFO 2
 #define DEBUG 3
 
-class Dpm8600 {
+class Dpm8600
+{
 private:
     int verbosity = QUIET;
     String cmd_setv = "w10=";
@@ -24,26 +34,32 @@ private:
 public:
     Dpm8600(int verbosity = QUIET) : verbosity(verbosity) {}
 
-    void begin() {
+    void begin()
+    {
         Serial1.begin(9600);
     }
 
-    void doCommand(const String &cmd) {
+    void doCommand(const String &cmd)
+    {
         String fullCmd = ":01" + cmd + ",";
         debug(fullCmd, DEBUG);
         Serial1.print(fullCmd + "\r\n");
         delay(500); // Wait for command response
     }
 
-    String getResponse(const String &cmd) {
+    String getResponse(const String &cmd)
+    {
         String fullCmd = ":01" + cmd + ",";
         debug(fullCmd, DEBUG);
         Serial1.print(fullCmd + "\r\n");
         String response = "";
-        while (true) {
-            if (Serial1.available()) {
+        while (true)
+        {
+            if (Serial1.available())
+            {
                 char c = Serial1.read();
-                if (c == '\n') {
+                if (c == '\n')
+                {
                     break;
                 }
                 response += c;
@@ -52,71 +68,86 @@ public:
         return response;
     }
 
-    void v(float volts) {
+    void v(float volts)
+    {
         String cmd = cmd_setv + String(volts, 0);
         doCommand(cmd);
     }
 
-    void a(float amps) {
+    void a(float amps)
+    {
         String cmd = cmd_seta + String(amps, 0);
         doCommand(cmd);
     }
 
-    void va(float volts, float amps) {
+    void va(float volts, float amps)
+    {
         String cmd = cmd_setva + String(volts, 0) + "," + String(amps, 0);
         doCommand(cmd);
     }
 
-    void on() {
+    void on()
+    {
         doCommand(cmd_on);
     }
 
-    void off() {
+    void off()
+    {
         doCommand(cmd_off);
     }
 
-    void temp() {
+    void temp()
+    {
         String out = getResponse(cmd_temp);
         debug(out);
     }
 
-    void pwrstatus() {
+    void pwrstatus()
+    {
         String out = getResponse(cmd_status);
         debug(out);
     }
 
-    void getvcap() {
+    void getvcap()
+    {
         String out = getResponse(cmd_getvcap);
         debug(out);
     }
 
-    void getacap() {
+    void getacap()
+    {
         String out = getResponse(cmd_getacap);
         debug(out);
     }
 
-    void getvval() {
+    void getvval()
+    {
         String out = getResponse(cmd_getvval);
         debug(out);
     }
 
-    void getaval() {
+    void getaval()
+    {
         String out = getResponse(cmd_getaval);
         debug(out);
     }
 
-    void getva() {
+    void getva()
+    {
         String out = getResponse(cmd_getva);
         debug(out);
     }
 
-    void getcap() {
+    void getcap()
+    {
         String out = (getResponse(cmd_getcap) == "1") ? "cc" : "cv";
         debug(out);
     }
 
-    void debug(const String &msg, int lvl = INFO) {
-        if (verbosity >= lvl) {
+    void debug(const String &msg, int lvl = INFO)
+    {
+        if (verbosity >= lvl)
+        {
             Serial.println(msg);
         }
     }
@@ -124,15 +155,17 @@ public:
 
 Dpm8600 dpm(DEBUG);
 
-void setup() {
+void setup()
+{
     Serial.begin(9600);
     dpm.begin();
     dpm.on();
-    dpm.v(10.0);
+    dpm.v(30.0);
     dpm.a(2.0);
 }
 
-void loop() {
+void loop()
+{
     dpm.temp();
     dpm.pwrstatus();
     dpm.getvcap();
