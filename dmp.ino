@@ -15,11 +15,11 @@ void towrite()
 }
 void setup()
 {
-    Serial.begin(9600);
+    Serial1.begin(9600);
     delay(1000);
     digitalWrite(Enable_pin, HIGH);
     // Initating power converter
-    int begins = converter.begin(Serial, 10);
+    int begins = converter.begin(Serial1, 10);
     if (!begins)
     {
         /* code */
@@ -31,7 +31,7 @@ void setup()
     }
 
     // Setting both Voltage and Current to 2V and 0.1A respectively
-    converter.writeVC(30, 10);
+    converter.writeVC(25, 10);
     pinMode(13, OUTPUT); // re
     pinMode(14, OUTPUT); // de
 }
