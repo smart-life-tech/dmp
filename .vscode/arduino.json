@@ -1,5 +1,5 @@
 {
     "board": "arduino:avr:mega",
-    "sketch": "dmp.ino",
+    "sketch": "test2\\test2.ino",
     "configuration": "cpu=atmega2560"
 }
