@@ -16,6 +16,7 @@ void towrite()
 void setup()
 {
     Serial1.begin(9600);
+    Serial.begin(9600);
     delay(1000);
     digitalWrite(Enable_pin, HIGH);
     // Initating power converter
